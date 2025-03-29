@@ -1,0 +1,67 @@
+version: '4.1'
+services:
+
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: frontend.dockerfile
+    ports:
+      - "5173:5173"
+    networks:
+      - lms_net
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+      dockerfile: backend.dockerfile
+    env_file:
+      - ./backend/.env
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/lms_db?schema=public
+    ports:
+      - "3000:3000"
+    networks:
+      - lms_net
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      db:
+        condition: service_healthy
+    command: >
+      sh -c "npx prisma migrate deploy && npm run dev"
+
+  db:
+    container_name: db
+    image: postgres:14
+    restart: always
+    ports:
+      - "5432:5432"
+    env_file:
+      - ./backend/.env
+    volumes:
+      - pgdata:/data/db
+    networks:
+      - lms_net
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      retries: 5
+      timeout: 5s
+      start_period: 30s
+
+
+
+networks:
+  lms_net:
+    driver: bridge
+
+volumes:
+  pgdata: {}
