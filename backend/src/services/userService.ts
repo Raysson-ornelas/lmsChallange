@@ -10,7 +10,14 @@ export const UserService = {
     return UserRepository.getById(id);
   },
 
-  async getRanking() {
+  async getRanking(): Promise<User[] | null> {
     return UserRepository.getRanking();
+  },
+  async updateScore(userId: string, score: number): Promise<User> {
+    return UserRepository.updateScore(userId, score);
+  },
+
+  async getUserByUsername(username: string): Promise<User | null> {
+    return UserRepository.getByName(username);
   },
 };

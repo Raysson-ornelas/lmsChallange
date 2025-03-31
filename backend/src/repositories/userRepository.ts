@@ -20,8 +20,12 @@ export const UserRepository = {
 
   async getRanking() {
     return await prisma.user.findMany({
-      orderBy: { score: 'desc' },
-      select: { id: true, username: true, score: true },
+      orderBy: [{ score: 'desc' }, { createdAt: 'asc' }],
+      select: { id: true, createdAt: true, username: true, score: true },
     });
+  },
+
+  async getByName(username: string) {
+    return await prisma.user.findUnique({ where: { username } });
   },
 };
