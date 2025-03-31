@@ -8,7 +8,7 @@ O LMS é um sistema utilizado por Especialistas em Treinamento e Professores par
 
 ### Fluxo da Aplicação
 
-1. **Tela de Cadastro**: O usuário deverá inserir o nome.
+1. **Tela Inicial**: O usuário deverá inserir o nome.
    
 2. **Tela de Pergunta**: O usuário deverá responder a uma pergunta de múltipla escolha. A pergunta terá várias opções, das quais algumas estão corretas e outras não.
 
@@ -57,3 +57,26 @@ Antes de começar, verifique se você tem os seguintes pré-requisitos instalado
     ```
 
 4. A aplicação estará disponível em [http://localhost:5173](http://localhost:5173).
+
+## Estrutura do Projeto
+
+### Frontend
+
+O frontend foi desenvolvido utilizando React e organiza o código da seguinte forma:
+
+- **src/assets**: Contém todos os arquivos estáticos usados pela aplicação, como imagens.
+- **src/components**: Armazena os componentes reutilizáveis da aplicação.
+- **src/context**: Contém os contextos do React, usados para gerenciar o estado global da aplicação.
+- **src/pages**: Contém as páginas da aplicação.
+- **src/services**: Contém funções responsáveis por interagir com o backend.
+- **src/types**: Armazena os tipos TypeScript compartilhados no frontend.
+
+### Backend
+
+O backend foi desenvolvido utilizando Node.js e Express, e a estrutura está organizada da seguinte maneira:
+
+- **src/controllers**: Responsável por gerenciar as requisições e respostas HTTP.
+- **src/repositories**: Contém a lógica de interação com o banco de dados.
+- **src/routes**: Define as rotas da API, conectando as URLs às funções dos controladores.
+- **src/services**: Contém a lógica de negócios da aplicação.
+
